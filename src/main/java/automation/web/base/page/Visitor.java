@@ -1,5 +1,6 @@
 package automation.web.base.page;
 
+import com.automation.agent.annotation.TracePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -14,10 +15,9 @@ public class Visitor {
         visitor = new PageVisitor(driver);
     }
 
+    @TracePage
     public <T> T gotoPage(Class<T> c) {
-        T t = visitor.visit(c, new Class[] {WebDriver.class}, new Object[] {});
-        logger.debug("[APM]{NODE:PAGE_" + c.getSimpleName() + ", TIME :" + System.nanoTime() + "};");
-        return t;
+        return visitor.visit(c, new Class[] {WebDriver.class}, new Object[] {}) ;
     }
 
     public void clearCache() {
